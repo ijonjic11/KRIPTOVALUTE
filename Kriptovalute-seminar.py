@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 def main():
-    # rpc_user and rpc_password are set in the bitcoin.conf file
     node_name="blockchain.oss.unist.hr"
     port="8332"
     rpc_user="student"
@@ -16,7 +15,7 @@ def main():
     getinfo = rpc_connection.getnetworkinfo()
     getnet= rpc_connection.getnettotals()
     getbcinfo= rpc_connection.getblockchaininfo()
-    #print (getbcinfo)
+    
     
     #Current Node explorer
     
@@ -39,8 +38,7 @@ def main():
         print ("NEMA UPOZORENJA")
     
     
-    #plt.scatter(x=df['Longitude'], y=df['Latitude'])
-    #plt.show()
+    
     df=pd.DataFrame(columns=["Country"])
   
     access_token = '27e7a6e53f8d99'
@@ -50,7 +48,7 @@ def main():
     print("Broj čvorova s kojim je povezna čvor %s je %d"%(node_name,(len(getpeer)-1)))
    
     for j in range (len(getpeer)):
-              if j<=20:
+              #if j<=20:
                 adresa_port=getpeer[j]["addr"]
                 adresa=adresa_port.split(":")[0]
                 host_name = adresa
@@ -61,15 +59,14 @@ def main():
         
                 #print ([adresa,host_name,response.country,response.country_name,response.region,response.timezone,response.city,response.latitude,response.longitude])
                 country=response.country_name
-                #print (country)
+               
                 df.loc[j]=[country]
                 #print (df)
-    
-    #print (df)
+   
+   
     fig=df['Country'].value_counts().plot(kind='pie',title='Grupiranje čvorova po državama',autopct='%1.1f%%')
-    
     plt.show()
-    #df.to_csv("drzave.csv")
+    
     
 if __name__=="__main__":
     main()
